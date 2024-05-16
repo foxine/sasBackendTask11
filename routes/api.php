@@ -10,3 +10,10 @@ use App\Http\Controllers\Api\ApiController;
 
 Route::post('/register', [ApiController::class, 'register']);
 Route::post('/login', [ApiController::class, 'login']);
+
+/*Route::group([
+        'middleware'=>['auth:sanctum']
+], function (){
+    Route::post('/books', BookController::class);
+});*/
+
