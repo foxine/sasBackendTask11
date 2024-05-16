@@ -89,6 +89,17 @@ class ApiController extends Controller
                 'message'=>$throwable->getMessage()
             ],500);
         }
-
     }
+
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+
+        return response()->json([
+            'status'=>true,
+            'message' => "You're now logged out"
+        ], 200);
+    }
+
 }
