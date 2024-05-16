@@ -50,4 +50,45 @@ class ApiController extends Controller
             ],500);
         }
     }
+
+    public function login(Request $request)
+    {
+        try{
+            $validateUser= Validator::make($request->all(),
+                [
+                    'email'=> 'required|email',
+                    'password'=> 'required',
+                ]);
+
+            if($validateUser->fails()){
+                return response()->json([
+                    'status' => false,
+                    'message'=> 'validation error',
+                    'errors'=>$validateUser->errors()
+                ], 401);
+            }
+
+            if(!Auth::attempt($request->only(['email', 'password']))){
+                return response()->json([
+                    'status' => false,
+                    'message'=> 'Email and password not found.',
+                ], 401);
+            }
+
+            $user = User::where('email', $request->email)->first();
+
+            return response()->json([
+                'status'=> true,
+                'message'=>'Login done.',
+                'token'=>$user->createToken('API TOKEN')->plainTextToken
+            ], 200);
+
+        }catch(\Throwable $throwable){
+            return response()->json([
+                'status'=>false,
+                'message'=>$throwable->getMessage()
+            ],500);
+        }
+
+    }
 }

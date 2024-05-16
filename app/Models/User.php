@@ -33,6 +33,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+   /* public static function where(string $string, $email)
+    {
+    }*/
+
     /**
      * Get the attributes that should be cast.
      *
