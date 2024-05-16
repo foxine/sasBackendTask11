@@ -9,3 +9,4 @@ use App\Http\Controllers\Api\ApiController;
 })->middleware('auth:sanctum');*/
 
 Route::post('/register', [ApiController::class, 'register']);
+Route::post('/login', [ApiController::class, 'login']);
